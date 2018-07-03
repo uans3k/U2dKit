@@ -1,6 +1,0 @@
-class Functor
-{
-  fmap(f)
-  {
-  }
-}
