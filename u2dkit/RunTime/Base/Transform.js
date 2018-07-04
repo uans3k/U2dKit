@@ -130,7 +130,7 @@ export default class Transform extends Component
     this.setWorldScaleRoatorAndRotator(scaleRotatorMatrix, rotator)
   }
 
-  attachParent (transParent, isKeepWorldCoord = true)
+  attachParent (transParent, isKeepWorldCoord = false)
   {
     var oldParent = this.parent
     if (isKeepWorldCoord)
@@ -259,6 +259,11 @@ export default class Transform extends Component
   removeChildIndex (index)
   {
     this._childList.delete(index)
+  }
+
+  clearChild ()
+  {
+    this._childList.clear()
   }
 
   get z ()

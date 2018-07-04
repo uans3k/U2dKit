@@ -1,7 +1,8 @@
-import Manager from '../Base/Manager.js'
-import Game    from '../../Game.js'
-import Vector2 from '../Math/Vector2.js'
-import Rotator from '../Math/Rotator.js'
+import Manager    from '../Base/Manager.js'
+import Game       from '../../Game.js'
+import Vector2    from '../Math/Vector2.js'
+import Rotator    from '../Math/Rotator.js'
+import GameObject from '../Base/GameObject.js'
 
 export default class ResourceManager extends Manager
 {
@@ -21,21 +22,30 @@ export default class ResourceManager extends Manager
     let img = new Image()
     let path = this.getResourcePath(src)
     img.src = path
+
+    img.onabort = function ()
+    {
+      console.log('abort')
+    }
+    img.onerror = function ()
+    {
+      console.log('error')
+    }
+
     img.onload = function ()
     {
       callback(img)
     }
-
   }
 
   loadGameObject (gameObjectConfig)
   {
-    return this._buildObject(gameObjectConfig)
+    return this._buildGameObject(gameObjectConfig)
   }
 
-  _buildObject (gameObjectConfig)
+  _buildGameObject (gameObjectConfig)
   {
-    let gameObject = gameObjectConfig.instance
+    let gameObject = new GameObject()
 
     if (gameObjectConfig.name != null)
     {
@@ -79,7 +89,7 @@ export default class ResourceManager extends Manager
     (
       (componentConfig) =>
       {
-        let componentInstance = this._buildComponent(componentConfig)
+        let componentInstance = this._buildObject(componentConfig)
         gameObject.addComponent(componentInstance)
       }
     )
@@ -89,34 +99,59 @@ export default class ResourceManager extends Manager
     (
       (childConfig) =>
       {
-        let childInstance = this._buildObject(childConfig)
-        childInstance.transform.attachParent(gameObject.transform, false)
+        let childInstance = this._buildGameObject(childConfig)
+        childInstance.transform.attachParent(gameObject.transform)
       }
     )
 
     return gameObject
   }
 
-  _buildComponent (componentConfig)
+  _buildObject (objectConfig)
   {
-    let component = componentConfig.instance
+    let clazz = objectConfig.class
+    let object = new clazz()
 
-    for (let prop in componentConfig)
+    for (let key in objectConfig)
     {
-      if (prop !== 'instance')
+      if (key !== 'class')
       {
-        component[prop] = componentConfig[prop]
+        let prop = objectConfig[key]
+        if (this._isObject(prop))
+        {
+          object[key] = this._buildObject(prop)
+        } else
+        {
+          object[key] = prop
+        }
       } else
       {
         //pass
       }
     }
-    return component
+    return object
+  }
+
+  _isObject (prop)
+  {
+    if
+    (
+      prop.constructor === String
+      ||
+      prop.constructor === Number
+      ||
+      prop.constructor === Array
+    )
+    {
+      return false
+    } else
+    {
+      return true
+    }
   }
 
   getResourcePath (src)
   {
-
     if (src.startsWith('http'))
     {
       return src

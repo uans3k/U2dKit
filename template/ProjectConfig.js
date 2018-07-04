@@ -1,9 +1,9 @@
 import Scenes from './Scenes.js'
 
-const projectConfig = {
+const ProjectConfig = {
   canvasID: 'uans3k',
   designX: 610,
-  designY: 545,
+  designY: 460,
   fps: 60,
   /**
    * the path is related to where load the "Game.js"
@@ -13,4 +13,4 @@ const projectConfig = {
   scenes: Scenes
 }
 
-export default projectConfig
+export default ProjectConfig

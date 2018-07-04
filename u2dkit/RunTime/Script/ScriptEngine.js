@@ -3,7 +3,6 @@ import CanvasManager from '../Canvas/CanvasManager.js'
 import CameraManager from '../Canvas/CameraManager.js'
 import EventManager  from './EventManager.js'
 import MonoBehavior  from './MonoBehavior.js'
-import LinkList      from '../DataStructure/LinkList.js'
 import Scriptanager  from './ScriptManager.js'
 import ScriptManager from './ScriptManager.js'
 import Collider      from '../Physic/Collider.js'
@@ -108,8 +107,7 @@ export default class ScriptEngine extends UEngine
   }
 
   /**
-   * collect monos and sort them by instance's z
-   * @param rootObject
+   * collect monos and sort them by class's z
    * @private
    */
   _collect ()
@@ -312,12 +310,12 @@ export default class ScriptEngine extends UEngine
   /**
    *
    * side effect : it will fill touch event with
-   * the touch  position in CaptureMono’s instance Local
+   * the touch  position in CaptureMono’s class Local
    * and the touch position in world
    *
-   * @param {GameObject} instance
+   *
    * @param {TouchEvent} touchEvent
-   * @param {Matrix2x2H} viewToWorldMatrixDict
+   *
    * @return {[MonoBehavior,Camera]}
    * @private
    */

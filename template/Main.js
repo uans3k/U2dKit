@@ -1,9 +1,10 @@
 import Game          from '../u2dkit/Game.js'
-import projectConfig from './ProjectConfig.js'
+import ProjectConfig from './ProjectConfig.js'
 
 let game = Game.instance
-game.init(projectConfig)
+game.init(ProjectConfig)
 game.run()
+
 
 
 

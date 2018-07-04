@@ -73,7 +73,7 @@ export default class Canvas extends UObject
   }
 
   drawText (matrix, font, textColor,
-            textAlign, textBaseline, anchor, text)
+            textAlign, textBaseline, x, y, text)
   {
 
     this._context.save()
@@ -85,7 +85,7 @@ export default class Canvas extends UObject
     this._context.fillStyle = textColor
     this._context.textAlign = textAlign
     this._context.textBaseline = textBaseline
-    this._context.fillText(text, anchor.x, anchor.y)
+    this._context.fillText(text, x, y)
 
     this._context.restore()
   }
@@ -93,9 +93,11 @@ export default class Canvas extends UObject
   drawImage (matrix, img, x, y, w, h)
   {
     this._context.save()
+
     let mat = matrix.multMatrixL(this._getWorldToViewportMatrix())
     this._context.transform(mat.m11, mat.m12, mat.m21, mat.m22, mat.dx, mat.dy)
     this._context.drawImage(img, x, y, w, h)
+
     this._context.restore()
   }
 

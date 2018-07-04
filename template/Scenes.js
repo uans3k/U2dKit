@@ -1,4 +1,4 @@
-import XiaoYuAnScene from './demo/XiaoYuAnScene.js'
+import XiaoYuAnScene from './demo/Assets/XiaoYuAnScene.js'
 
 const Scenes =
   [
