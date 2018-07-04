@@ -122,7 +122,7 @@ export default class PointBehavior extends MonoBehavior
     (
       (collider) =>
       {
-        if (collider.gameObject.name = 'Recycle')
+        if (collider.gameObject.name === 'recycle')
         {
           this._delete = true
           return true
@@ -140,7 +140,7 @@ export default class PointBehavior extends MonoBehavior
     (
       (collider) =>
       {
-        if (collider.gameObject.name = 'Recycle')
+        if (collider.gameObject.name === 'recycle')
         {
           this._delete = false
           return true

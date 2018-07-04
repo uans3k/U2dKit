@@ -10,6 +10,7 @@ const ProjectConfig = {
    */
   u2dkitDir: '../u2dkit',
   resourceDir: './Resource',
+  cacheNumber: 32,
   scenes: Scenes
 }
 

@@ -3,6 +3,7 @@ import Game       from '../../Game.js'
 import Vector2    from '../Math/Vector2.js'
 import Rotator    from '../Math/Rotator.js'
 import GameObject from '../Base/GameObject.js'
+import LinkList   from '../DataStructure/LinkList.js'
 
 export default class ResourceManager extends Manager
 {
@@ -10,32 +11,69 @@ export default class ResourceManager extends Manager
   constructor0 ()
   {
     this._resourceDir = null
+    this._cacheImgList = new LinkList()
+    this._cacheNumber = 32
   }
 
   startup ()
   {
     this._resourceDir = Game.instance.projectConfig.resourceDir
+    if (Game.instance.projectConfig.cacheNumber !== null)
+    {
+      this._cacheNumber = Game.instance.projectConfig.cacheNumber
+    } else
+    {
+      //pass
+    }
   }
 
   loadImage (src, callback)
   {
-    let img = new Image()
-    let path = this.getResourcePath(src)
-    img.src = path
+    src = this.getResourcePath(src)
 
-    img.onabort = function ()
+    let cacheImg = this._cacheImgList.choose
+    (
+      (img) =>
+      {
+        if (img.src === src)
+        {
+          return true
+        } else
+        {
+          return false
+        }
+      }
+    )
+
+    if (cacheImg !== null)
     {
-      console.log('abort')
-    }
-    img.onerror = function ()
+      this._cacheImgList.deleteElement(cacheImg)
+      this._cacheImgList.pushTail(cacheImg)
+
+      return callback(cacheImg.img)
+    } else
     {
-      console.log('error')
+      if (this._cacheImgList.length > this._cacheNumber)
+      {
+        this._cacheImgList.popHead()
+      } else
+      {
+        //pass
+      }
+
+      let that = this
+      let img = new Image()
+      img.src = src
+      img.onload = function ()
+      {
+
+        let newCacheImg = new CacheImage(src, img)
+        that._cacheImgList.pushTail(newCacheImg)
+
+        callback(img)
+      }
     }
 
-    img.onload = function ()
-    {
-      callback(img)
-    }
   }
 
   loadGameObject (gameObjectConfig)
@@ -181,4 +219,33 @@ export default class ResourceManager extends Manager
 
   }
 
+}
+
+class CacheImage
+{
+  constructor (src, img)
+  {
+    this._src = src
+    this._img = img
+  }
+
+  get src ()
+  {
+    return this._src
+  }
+
+  set src (value)
+  {
+    this._src = value
+  }
+
+  get img ()
+  {
+    return this._img
+  }
+
+  set img (value)
+  {
+    this._img = value
+  }
 }
