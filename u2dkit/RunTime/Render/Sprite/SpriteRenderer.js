@@ -29,7 +29,6 @@ export default class SpriteRenderer extends Renderer
     }
   }
 
-
   set imgUrl (value)
   {
     this.isVisible = false

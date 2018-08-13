@@ -190,7 +190,11 @@ export default class ResourceManager extends Manager
 
   getResourcePath (src)
   {
-    if (src.startsWith('http'))
+    if (src === null)
+    {
+      return ''
+    }
+    else if (src.startsWith('http'))
     {
       return src
     } else if (src.startsWith('/'))
