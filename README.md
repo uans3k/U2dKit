@@ -1,4 +1,4 @@
-# 如何使用
+# 快速开始
 完整示例参考template文件夹
 
 ## 配置文件设置
@@ -91,6 +91,13 @@ const XiaoYuAnScene =
       ]
   }
 ```
+## 创建运行实例
+
+```
+let game = Game.instance
+game.init(projectConfig)
+game.run()
+```
 
 ## 组件介绍
 
@@ -136,6 +143,33 @@ const XiaoYuAnScene =
 ```
 
 
-## 生命周期
+## 脚本的编写
+参考/template/demo 下的xxxBehavior
+
+
+## 事件
+一个事件包括类型，发生时的世界坐标，发生时的屏幕坐标，发生时的相机坐标，以及发生事的局部坐标
+
+```
+event.type()
+event.worldVector
+event.viewVector
+event.cameraVector
+event.localVector
+```
+事件类型包括：
+按下，移动，松开，移出屏幕
+
+## 实例与组件查找
+
+实例查找，包含一系列以findObjectXXX()为开头的方法
+```
+this.findObjectInChildrenByName（"xxx"）
+```
+组件查找，包括一系列以this.findComponentXXX()为开头的方法
+
+```
+this.findComponentInSelfByType(TextRenderer)
+```
 
 
