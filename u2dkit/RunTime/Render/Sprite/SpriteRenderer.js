@@ -4,13 +4,11 @@ import Loader   from '../../Resource/Loader.js'
 
 export default class SpriteRenderer extends Renderer
 {
-
   constructor0 ()
   {
     super.constructor0()
     this._rect = new Rect(0, 0, 0, 0)
     this.isVisible = false
-    this._imgUrl = null
     this._img = null
   }
 
@@ -20,29 +18,29 @@ export default class SpriteRenderer extends Renderer
    */
   render (canvas)
   {
-    let transform = this.transform
-    let mat = transform.getLocalToWorldMatrix()
-    canvas.drawImage(mat, this._img, this._rect.minX, this._rect.minY, this._rect.width, this._rect.height)
+    if (this._img !== null)
+    {
+      let transform = this.transform
+      let mat = transform.getLocalToWorldMatrix()
+      canvas.drawImage(mat, this._img, this._rect.minX, this._rect.minY, this._rect.width, this._rect.height)
+    } else
+    {
+      //pass
+    }
   }
 
   set imgUrl (value)
   {
     this.isVisible = false
-    this._imgUrl = value
     Loader.loadImage
     (
-      this._imgUrl
+      value
       , (img) =>
       {
         this._img = img
         this.isVisible = true
       }
     )
-  }
-
-  get imgUrl ()
-  {
-    return this._imgUrl
   }
 
   set rect (value)
@@ -54,4 +52,15 @@ export default class SpriteRenderer extends Renderer
   {
     return this._rect
   }
+
+  get img ()
+  {
+    return this._img
+  }
+
+  set img (value)
+  {
+    this._img = value
+  }
+
 }

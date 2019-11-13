@@ -149,4 +149,4 @@ export default class Game extends UObject
   }
 }
 
-let game = Game.instance
+let game = Game.class

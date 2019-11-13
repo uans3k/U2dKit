@@ -1,5 +1,4 @@
-import Renderer        from '../../BaseComponent/Renderer.js'
-import Vector2         from '../../Math/Vector2.js'
+import Renderer from '../../BaseComponent/Renderer.js'
 
 export default class TextRenderer extends Renderer
 {
@@ -7,7 +6,8 @@ export default class TextRenderer extends Renderer
   constructor0 ()
   {
     super.constructor0()
-    this._anchor = new Vector2(0, 0)
+    this._x = 0
+    this._y = 0
     this._font = '15px 宋体'
     this._textAlign = 'center'
     this._textBaseline = 'middle'
@@ -26,21 +26,11 @@ export default class TextRenderer extends Renderer
     {
       let transform = this.transform
       let mat = transform.getLocalToWorldMatrix()
-      canvas.drawText(mat, this._font, this._textColor, this._textAlign, this._textBaseline, this._anchor, this._text)
+      canvas.drawText(mat, this._font, this._textColor, this._textAlign, this._textBaseline, this._x, this._y, this._text)
     } else
     {
       //pass
     }
-  }
-
-  get anchor ()
-  {
-    return this._anchor
-  }
-
-  set anchor (value)
-  {
-    this._anchor = value
   }
 
   get font ()
@@ -93,4 +83,23 @@ export default class TextRenderer extends Renderer
     this._text = value.toString()
   }
 
+  get x ()
+  {
+    return this._x
+  }
+
+  set x (value)
+  {
+    this._x = value
+  }
+
+  get y ()
+  {
+    return this._y
+  }
+
+  set y (value)
+  {
+    this._y = value
+  }
 }

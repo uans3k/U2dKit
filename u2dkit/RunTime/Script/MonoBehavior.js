@@ -10,13 +10,13 @@ export default class MonoBehavior extends Behavior
 
   start ()
   {
-    if (this._isStart)
-    {
-      return
-    } else
+    if (!this._isStart)
     {
       this._isStart = true
       this.onStart()
+    } else
+    {
+      //pass
     }
   }
 

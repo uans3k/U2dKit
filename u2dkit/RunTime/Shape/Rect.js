@@ -5,6 +5,13 @@ import LinkList      from '../DataStructure/LinkList.js'
 
 export default class Rect extends Shape
 {
+  constructor0 ()
+  {
+    this._minX = 0
+    this._minY = 0
+    this._width = 0
+    this._hight = 0
+  }
 
   constructor4 (minX, minY, width, height)
   {
@@ -62,5 +69,10 @@ export default class Rect extends Shape
   set height (value)
   {
     this._hight = value
+  }
+
+  toString ()
+  {
+    return this.minX + ',' + this.minY + ',' + this.width + ',' + this.height
   }
 }

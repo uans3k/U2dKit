@@ -1,5 +1,5 @@
-import MonoBehavior from '../../u2dkit/RunTime/Script/MonoBehavior.js'
-import Vector2      from '../../u2dkit/RunTime/Math/Vector2.js'
+import MonoBehavior from '../../../u2dkit/RunTime/Script/MonoBehavior.js'
+import Vector2      from '../../../u2dkit/RunTime/Math/Vector2.js'
 
 export default class RootBehavior extends MonoBehavior
 {
@@ -20,8 +20,29 @@ export default class RootBehavior extends MonoBehavior
 
   set scaleLevel (value)
   {
-    this._scaleLevel = value
-    this._scale = 1 + (this._scaleLevel - 1) * 0.5
+    if (value > 0 && value < 4)
+    {
+      this._scaleLevel = value
+      this._scale = 1 + (this._scaleLevel - 1) * 0.5
+      this._map.transform.scale = new Vector2(this._scale, this._scale)
+      if (value === 1)
+      {
+        this._map.transform.position = new Vector2(0, 0)
+      }
+    } else
+    {
+      //pass
+    }
+  }
+
+  plus ()
+  {
+    this.scaleLevel = this._scaleLevel + 1
+  }
+
+  minus ()
+  {
+    this.scaleLevel = this._scaleLevel - 1
   }
 
   onStart ()

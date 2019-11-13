@@ -48,7 +48,7 @@ export default class Matrix
     //   {
     //     for (var j = 0; j < this._col; j++)
     //     {
-    //       this._data[i][j]
+    //       this._point[i][j]
     //     }
     //   }
     // }

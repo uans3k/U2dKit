@@ -374,7 +374,7 @@ export default class Component extends UObject
   {
     if (this._gameObject == null)
     {
-      throw BaseException('BaseComponent not attach a instance')
+      throw BaseException('BaseComponent not attach a class')
     } else
     {
       return this._gameObject.transform

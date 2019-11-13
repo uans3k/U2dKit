@@ -12,10 +12,7 @@ export default class UObject
     eval(js)
   }
 
-  setProperty (propName,value)
-  {
-    // if(this[propName])
-  }
+
 
   getClassName ()
   {

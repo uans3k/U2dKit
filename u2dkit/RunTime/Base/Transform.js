@@ -42,29 +42,29 @@ export default class Transform extends Component
   // }
 
   getWorldPosition ()
-  {
-    var worldPosition = this.position.getCopy()
-    var pos = this.parent
-    while (pos != null)
     {
-      worldPosition = worldPosition.mult(pos.scale)
-      worldPosition = pos.rotator.multVectorL(worldPosition)
-      worldPosition = worldPosition.add(pos.position)
-      pos = pos.parent
+      var worldPosition = this.position.getCopy()
+      var pos = this.parent
+      while (pos != null)
+      {
+        worldPosition = worldPosition.mult(pos.scale)
+        worldPosition = pos.rotator.multVectorL(worldPosition)
+        worldPosition = worldPosition.add(pos.position)
+        pos = pos.parent
+      }
+      return worldPosition
     }
-    return worldPosition
-  }
 
-  getWorldRotator ()
-  {
-
-    let worldRotator = this.rotator.getCopy()
-    let pos = this.parent
-    while (pos != null)
+    getWorldRotator ()
     {
-      worldRotator = worldRotator.multRotator(pos.rotator)
-      pos = pos.parent
-    }
+
+      let worldRotator = this.rotator.getCopy()
+      let pos = this.parent
+      while (pos != null)
+      {
+        worldRotator = worldRotator.multRotator(pos.rotator)
+        pos = pos.parent
+      }
     return worldRotator
   }
 
@@ -130,7 +130,7 @@ export default class Transform extends Component
     this.setWorldScaleRoatorAndRotator(scaleRotatorMatrix, rotator)
   }
 
-  attachParent (transParent, isKeepWorldCoord = true)
+  attachParent (transParent, isKeepWorldCoord = false)
   {
     var oldParent = this.parent
     if (isKeepWorldCoord)
@@ -259,6 +259,11 @@ export default class Transform extends Component
   removeChildIndex (index)
   {
     this._childList.delete(index)
+  }
+
+  clearChild ()
+  {
+    this._childList.clear()
   }
 
   get z ()

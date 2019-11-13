@@ -9,27 +9,27 @@ export default class Time extends UObject
 
   static get startupTime ()
   {
-    return TimeManager.instance.startupTime
+    return TimeManager.class.startupTime
   }
 
   static get currentFrameTime ()
   {
-    return TimeManager.instance.currentFrameTime
+    return TimeManager.class.currentFrameTime
   }
 
   static get lastFrameTime ()
   {
-    return TimeManager.instance.lastFrameTime
+    return TimeManager.class.lastFrameTime
   }
 
   static get deltaFrameTime ()
   {
-    return TimeManager.instance.deltaFrameTime
+    return TimeManager.class.deltaFrameTime
   }
 
   static get frameCount ()
   {
-    return TimeManager.instance.frameCount
+    return TimeManager.class.frameCount
   }
 
   static get time ()
